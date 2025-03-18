@@ -1,0 +1,64 @@
+simulator : 
+  folder : "2x1network"
+  dt : 90 #周期？
+  count : 30 #MPCの繰り返し回数
+  # total_time : 1000
+  seed : 1
+  quick_mode : 0
+  evaluation :
+    dt : 90 #データを取得する間隔(Qlengthとか)
+    queue_length : "on"
+    delay_time : "on"
+
+mpc :
+  dt : 2
+  N_p : 4
+  N_c : 2
+  D_o : 100
+
+scoot : 
+  ds : 4
+  cycle : 60
+  alpha : 0.8
+  beta : 0.2
+
+#一旦無視
+network :
+  inpx_file : '2x1network\vissim_2x1.inpx'   # vissimのinpxファイル
+  layx_file : '2x1network\vissim_2x1.layx'   # vissimのlayxファイル
+
+  vehicle :
+    left_rel_flow : 0.2
+    straight_rel_flow : 0.7
+    right_rel_flow : 0.1
+
+  # groups :
+  #   - id : 1                                                # グループのID
+  #     roads : '1-1_network_roads.yaml'                 # 道路の情報がまとまったyamlファイル
+  #     intersections : '1-1_network_intersections.yaml' # 交差点の情報がまとまったyamlファイル
+  #     prms : '1-1_network_prms.yaml'                   # パラメータの情報がまとまったyamlファイル
+
+vissim :
+  graphic_mode : 0 # 描画モードON=0
+  seed : 22        # 乱数のシード値
+  resolution : 10  # シミュレーション時間で1sあたりに何回自動車の位置を更新するか(解像度)
+  max_sim_speed : 'on' # シミュレーションの速度を最大にするかどうか
+  
+mpc :
+  predictive_horizon : 3 # 予測ホライゾン
+  control_interval : 90 #周期 
+
+
+model :
+  Smodel :
+    v_free : 50                   #自由流速度[km/h]　後で[m/s]に直す
+    saturated_flow : 0.5          # 飽和交通量Q[veh/s]
+    # vehicle_capacity : 300/6.5    # 最大許容自動車容量C[veh]
+    length_road : 300             #道路の長さ[m]
+    length_vehicle : 6.5          # 平均自動車長[m]
+
+simulation :
+  count : 30  #MPCのループ回数
+  time_bef_control : 90 #制御なしで動かす時間
+
+
