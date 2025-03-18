@@ -61,4 +61,6 @@ simulation :
   count : 30  #MPCのループ回数
   time_bef_control : 90 #制御なしで動かす時間
 
+sim: 1
+
 
